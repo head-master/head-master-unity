@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -60,6 +60,8 @@ public class DetectFaceOfCube : MonoBehaviour
 	 * which will correspond to Cubes in the real world */
 	
 	public TerrainCube[,,] terrain_map;
+	
+	Component previousComponent = null;
 	
 	public int MAX_WIDTH = 5;
 	public int MAX_DEPTH = 5;
@@ -138,6 +140,15 @@ public class DetectFaceOfCube : MonoBehaviour
 			Debug.Log (cubeLocation);
 			
 			DoMovement(cubeLocation + new Vector3(0f, 0, 0f));
+			Component render = hitCube.gameObject.GetComponentsInChildren<MeshRenderer>()[1];
+			
+			if (previousComponent != null)
+			{
+				((MeshRenderer)previousComponent).enabled = false;
+			}
+			previousComponent = render;
+			((MeshRenderer)render).enabled = true;
+			
 			
 		}
 	}
